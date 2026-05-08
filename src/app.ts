@@ -17,7 +17,11 @@ const Note = model('Note', noteSchema);
 app.post('/create-notes', async (req: Request, res: Response) => {
     const newNote = new Note({
         title: "First Note",
-        content: "This is the content of the first note"
+        content: "This is the content of the first note",
+        published: {
+            type: Date ,
+            default: Date.now
+        }
     })
     await newNote.save();
     res.status(201).json({
