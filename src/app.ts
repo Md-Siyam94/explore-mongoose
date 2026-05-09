@@ -8,22 +8,35 @@ const app: Application = express();
 
 const noteSchema = new Schema({
     title: String,
-    content: String
+    content: String,
+    category: {
+        type: String,
+        enum: ['Personal', 'Work', 'Other'],
+        default: 'Personal'
+    }
 })
 
 const Note = model('Note', noteSchema);
 
 
-app.post('/create-notes', async (req: Request, res: Response) => {
-    const newNote = new Note({
-        title: "First Note",
-        content: "This is the content of the first note"
-    })
-    await newNote.save();
+app.post('/note/create-notes', async (req: Request, res: Response) => {
+
+    const newNote = req.body; // Assuming the request body contains the note data
+    // method 1
+    // const newNote = new Note({
+    //     title: "First Note",
+    //     content: "This is the content of the first note",
+    //     category: "Personal"
+    // })
+    // await newNote.save();
+
+    // method 2
+    const note = await Note.create(newNote);
+
     res.status(201).json({
         status: true,
         message: "Note created successfully",
-        data: newNote
+        data: note 
     });
 
 });
