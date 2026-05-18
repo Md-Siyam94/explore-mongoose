@@ -6,7 +6,7 @@ import { Schema } from 'mongoose';
 const app: Application = express();
 
 
-const noteSchema = new mongoose.Schema({
+const noteSchema = new Schema({
     title: {
         type: String
     },
@@ -36,8 +36,7 @@ app.get('/notes', async (req: Request, res: Response) => {
 });
 app.post('/note/create-notes', async (req: Request, res: Response) => {
 
-    const newNote = req?.body; // Assuming the request body contains the note data
-    console.log(newNote);
+    const newNote = req.body; // Assuming the request body contains the note data
     // method 1
     // const newNote = new Note({
     //     title: "First Note",
@@ -47,13 +46,13 @@ app.post('/note/create-notes', async (req: Request, res: Response) => {
     // await newNote.save();
 
     // method 2
-    // const note = await Note.create(newNote);
+    const note = await Note.create(newNote);
 
-    // res.status(201).json({
-    //     status: true,
-    //     message: "Note created successfully",
-    //     data: note
-    // });
+    res.status(201).json({
+        status: true,
+        message: "Note created successfully",
+        data: note
+    });
 
 });
 
