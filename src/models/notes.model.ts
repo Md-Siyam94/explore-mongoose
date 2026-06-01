@@ -1,11 +1,16 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
+import { INote } from "../interfaces/noteInterface";
 
-const noteSchema = new mongoose.Schema({
+const noteSchema = new Schema<INote>({
     title: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     content: {
-        type: String
+        type: String,
+        required: true,
+        trim: true
     },
     category: {
         type: String,
