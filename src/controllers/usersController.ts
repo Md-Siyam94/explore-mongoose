@@ -4,19 +4,30 @@ const userRouter = express.Router();
 
 userRouter.get('/', async (req: Request, res: Response) => {
     const users = await User.find();
-    res.status(200).json({
+    return res.status(200).json({
         message: "User route"
     });
 });
 
-userRouter.post('/users', async (req: Request, res: Response) => {
-    const user = req.body;
-    const newUser = new User(user);
-    await newUser.save();
-    res.status(201).json({
+userRouter.post('/create-user', async (req: Request, res: Response) => {
+    const user = new User(req.body);
+    const filter = {email: user?.email}
+   const existingUser = await User.findOne(filter)
+   if(existingUser){
+    return res.json({insertedId: null, message: "User already exist! please login."})
+   }
+    await user.save();
+   return res.status(201).json({
         message: "User created successfully"
     });
 });
+
+userRouter.get('/:email', async(req: Request, res: Response)=>{
+    const email = req.params.email;
+    const filter = {email: email};
+    const user = await User.findOne({filter})
+    console.log(user);
+})
 
 
 
