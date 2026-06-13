@@ -5,7 +5,7 @@ import { IUser } from "../interfaces/userInterface";
  const userSchema = new Schema<IUser>({
     firstName: {
         type: String,
-        required: true,
+        required: [true, "First name is required"],
         trim: true
     },
     lastName: {
