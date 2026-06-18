@@ -15,6 +15,14 @@ import { IUser } from "../interfaces/userInterface";
     },
     email:{
         type: String,
+        validate: {
+            validator: function(email){
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+            },
+            message: function(props){
+                return `${props?.value} is not a valid email`
+            }
+        },
         required: true
     },
     password: {
