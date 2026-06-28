@@ -21,7 +21,20 @@ import { IUser } from "../interfaces/userInterface";
         type: String,
         required: true,
     },
-    
- });
+    address: {
+        country: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        zipCode: {
+            type: Number,
+            required: true
+        }
+    }
+});
 
 export const User = model('User', userSchema)
