@@ -9,7 +9,7 @@ import Note  from '../models/notes.model';
 
 noteRouter.get('/', async (req: Request, res: Response) => {
 
-    const note = await Note.find();
+    const note = await Note.find().populate("user");
 
     res.status(200).json({
         note
