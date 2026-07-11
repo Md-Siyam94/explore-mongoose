@@ -17,6 +17,11 @@ const noteSchema = new Schema<INote>({
         enum: ['Personal', 'Work', 'Other', 'mongodb'],
        default: 'Personal'
     },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+    }
 
 },
     { timestamps: true })

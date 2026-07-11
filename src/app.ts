@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import mongoose, { model } from 'mongoose';
-import { Schema } from 'mongoose';
+
 import userRouter from './controllers/usersController';
 import noteRouter from './controllers/notesController';
 
