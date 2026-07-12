@@ -38,9 +38,10 @@ userRouter.post('/create-user', async (req: Request, res: Response) => {
         if (existingUser) {
             return res.json({ insertedId: null, message: "User already exist! please login." })
         }   
-       const user = await User.create(body);
+       const user = new User(body);
         const password = await user.hashPassword(body.password)
         user.password = password
+        await user.save();
         console.log(user.password);
         return res.status(201).json({
             message: "User created successfully",
