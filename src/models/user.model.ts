@@ -63,4 +63,11 @@ const password = await bcrypt.hash(plainPassword, 10)
        return password
 })
 
+userSchema.pre("save", async function(){
+    const password = await bcrypt.hash(this.password, 10)
+    this.password = password;
+    console.log("pre save hook called");
+    console.log(this)
+})
+
 export const User = model<IUser, UserStaticMethod>("User", userSchema)
